@@ -1,0 +1,31 @@
+{
+	"name": "library-of-books",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"start": "live-server",
+		"build": "rollup -c --watch"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/vitaliy-tsyganok/library-of-books.git"
+	},
+	"author": "Vitaliy Tsyganok",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/vitaliy-tsyganok/library-of-books/issues"
+	},
+	"homepage": "https://github.com/vitaliy-tsyganok/library-of-books#readme",
+	"devDependencies": {
+		"@rollup/plugin-node-resolve": "^15.0.2",
+		"eslint": "^8.41.0",
+		"live-server": "^1.2.2",
+		"rollup": "^3.23.0",
+		"rollup-plugin-import-css": "^3.2.1"
+	},
+	"dependencies": {
+		"on-change": "^4.0.2"
+	}
+}
