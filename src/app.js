@@ -5,8 +5,9 @@ class App {
 		{ path: '', view: MainView }
 	];
 	appState = {
-		favorites: []
-	}
+		favorites: [],
+		cart: [],
+	};
 
 	constructor() {
 		window.addEventListener('hashchange', this.route.bind(this));
