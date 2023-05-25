@@ -5,8 +5,7 @@ class App {
 		{ path: '', view: MainView }
 	];
 	appState = {
-		favorites: [],
-		cart: [],
+		favorites: []
 	};
 
 	constructor() {

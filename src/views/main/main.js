@@ -7,6 +7,7 @@ import { CardsList } from '../../components/cardsList/cardsList.js';
 export class MainView extends AbstractView {
 	state = {
 		list: [],
+		numFound: 0,
 		isLoading: false,
 		searchQuery: undefined,
 		offset: 0,
@@ -33,12 +34,14 @@ export class MainView extends AbstractView {
 				this.state.searchQuery,
 				this.state.offset
 			);
+			console.log(data);
 			this.state.isLoading = false;
-			this.state.list = data.docs
+			this.state.numFound = data.numFound;
+			this.state.list = data.docs;
 		}
 
-		if (path === 'isLoading' || path === 'list') {
-			this.render()
+		if (path === 'isLoading' || path === 'list' || path === 'numFound') {
+			this.render();
 		}
 	}
 
@@ -50,17 +53,10 @@ export class MainView extends AbstractView {
 	}
 
 	render() {
-		// const main = document.createElement('div');
 		this.app.innerHTML = '';
-		// this.renderHeader();
 		this.app.append(new Header(this.appState).render());
 		this.app.append(new Search(this.state).render());
-		this.app.append(new CardsList(this.state).render());
-		// this.app.append(main)
+		this.app.append(new CardsList(this.appState, this.state).render());
 	}
 
-	// renderHeader() {
-	// 	const header = new Header(this.appState).render();
-	// 	this.app.prepend(header);
-	// }
 }
