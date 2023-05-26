@@ -27,10 +27,10 @@ export class CardList extends DivComponent {
 			return;
 		}
 
-		if (isBookInFavorites(dataKey)) {
-			deleteBookInFavorites(dataKey);
+		if (isBookInFavorites.call(this, dataKey)) {
+			deleteBookInFavorites.call(this, dataKey);
 		} else {
-			addBookInFavorites(dataKey);
+			addBookInFavorites.call(this, dataKey);
 		}
 
 		function isBookInFavorites(key) {
@@ -41,9 +41,9 @@ export class CardList extends DivComponent {
 		}
 
 		function addBookInFavorites(key) {
-			const book = getBookFromList(key);
+			const book = getBookFromList.call(this, key);
 			this.appState.favorites.push(book);
-			
+
 			function getBookFromList(key) {
 				return this.parentState.list.find((b) => b.key == key);
 			}
@@ -66,8 +66,12 @@ export class CardList extends DivComponent {
 		this.el.innerHTML = `
 			<h1>Найдено книг: ${this.parentState.numFound}</h1>
 		`;
+
+		const cardGrid = document.createElement('div');
+		cardGrid.classList.add('cardGrid');
+		this.el.append(cardGrid);
 		for (const card of this.parentState.list) {
-			this.el.append(new Card(this.appState, card)).render();
+			cardGrid.append(new Card(this.appState, card).render());
 		}
 		return this.el;
 	}
