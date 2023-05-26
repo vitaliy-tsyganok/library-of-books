@@ -2,7 +2,7 @@ import { AbstractView } from '../../common/view.js';
 import onChange from 'on-change';
 import { Header } from '../../components/header/header.js';
 import { Search } from '../../components/search/search.js';
-import { CardsList } from '../../components/cardsList/cardsList.js';
+import { CardList } from '../../components/cardList/cardList.js';
 
 export class MainView extends AbstractView {
 	state = {
@@ -23,7 +23,7 @@ export class MainView extends AbstractView {
 
 	appStateHook(path) {
 		if (path === 'favorites') {
-			console.log(path);
+			this.render();
 		}
 	}
 
@@ -56,7 +56,7 @@ export class MainView extends AbstractView {
 		this.app.innerHTML = '';
 		this.app.append(new Header(this.appState).render());
 		this.app.append(new Search(this.state).render());
-		this.app.append(new CardsList(this.appState, this.state).render());
+		this.app.append(new CardList(this.appState, this.state).render());
 	}
 
 }
