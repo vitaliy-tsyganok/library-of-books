@@ -2,14 +2,14 @@ import { DivComponent } from '../../common/div-component';
 import './search.css';
 
 export class Search extends DivComponent {
-	constructor(state) {
+	constructor(appState) {
 		super();
-		this.state = state;
+		this.appState = appState;
 	}
 
 	search() {
 		const value = this.el.querySelector('input').value;
-		this.state.searchQuery = value;
+		this.appState.searchQuery = value;
 	}
 
 	render() {
@@ -20,7 +20,7 @@ export class Search extends DivComponent {
 					type="text" 
 					placeholder="Найти книгу или автора..."
 					class="search__input"
-					value="${this.state.searchQuery ? this.state.searchQuery : ''}"
+					value="${this.appState.searchQuery ? this.appState.searchQuery : ''}"
 				/>
 				<img src="/static/search.svg" alt="Поиск"/>
 				</div>

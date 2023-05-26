@@ -5,42 +5,31 @@ import { Search } from '../../components/search/search.js';
 import { CardList } from '../../components/cardList/cardList.js';
 
 export class MainView extends AbstractView {
-	state = {
-		list: [],
-		numFound: 0,
-		isLoading: false,
-		searchQuery: undefined,
-		offset: 0,
-	};
-
 	constructor(appState) {
 		super();
 		this.appState = appState;
 		this.appState = onChange(this.appState, this.appStateHook.bind(this));
-		this.state = onChange(this.state, this.stateHook.bind(this));
 		this.setTitle('Поиск книг');
 	}
 
-	appStateHook(path) {
-		if (path === 'favorites') {
-			this.render();
-		}
+	destroy() {
+		onChange.unsubscribe(this.appState);
 	}
 
-	async stateHook(path) {
+	async appStateHook(path) {
 		if (path === 'searchQuery') {
-			this.state.isLoading = true;
+			this.appState.isLoading = true;
 			const data = await this.loadList(
-				this.state.searchQuery,
-				this.state.offset
+				this.appState.searchQuery,
+				this.appState.offset
 			);
-			console.log(data);
-			this.state.isLoading = false;
-			this.state.numFound = data.numFound;
-			this.state.list = data.docs;
+			this.appState.isLoading = false;
+			this.appState.numFound = data.numFound;
+			this.appState.list = data.docs;
 		}
 
-		if (path === 'isLoading' || path === 'list' || path === 'numFound') {
+		const trigers = ['isLoading', 'list', 'numFound', 'favorites'];
+		if (trigers.includes(path)) {
 			this.render();
 		}
 	}
@@ -55,8 +44,7 @@ export class MainView extends AbstractView {
 	render() {
 		this.app.innerHTML = '';
 		this.app.append(new Header(this.appState).render());
-		this.app.append(new Search(this.state).render());
-		this.app.append(new CardList(this.appState, this.state).render());
+		this.app.append(new Search(this.appState).render());
+		this.app.append(new CardList(this.appState).render());
 	}
-
 }

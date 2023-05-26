@@ -1,11 +1,18 @@
 import { MainView } from './views/main/main.js';
+import { FavoritesView } from './views/favorites/favorites.js';
 
 class App {
 	routes = [
-		{ path: '', view: MainView }
+		{ path: '', view: MainView },
+		{ path: '#favorites', view: FavoritesView },
 	];
 	appState = {
-		favorites: []
+		list: [],
+		favorites: [],
+		numFound: 0,
+		isLoading: false,
+		searchQuery: undefined,
+		offset: 0,
 	};
 
 	constructor() {
